@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import NotFound from "./pages/NotFound";
+import { useEffect } from "react";
+import { supabase } from "../src/api-supabase/Supabase";
+import { TaskContextProvider } from "./context/TaskContext";
+import { Navbar } from "./components/Navbar";
 
 function App() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((event, session) => {
+      console.log(event, session);
+      if (!session) {
+        navigate("/login");
+      } else {
+        navigate("/");
+      }
+    });
+  }, [navigate]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TaskContextProvider>
+        <Navbar />
+        <div className="container">
+          <Routes>
+            <Route path="/Login" element={<Login />} />
+            <Route path="/" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </TaskContextProvider>
     </div>
   );
 }

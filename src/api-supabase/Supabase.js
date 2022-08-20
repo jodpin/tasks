@@ -1,0 +1,6 @@
+import { createClient } from "@supabase/supabase-js";
+
+const REACT_APP_SUPABASE_URL= "https://jbulldehngymvdsfenxc.supabase.co"
+const REACT_APP_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpidWxsZGVobmd5bXZkc2ZlbnhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTk5NjI1MDIsImV4cCI6MTk3NTUzODUwMn0.fYd2ZuLim2inz1qT4YhIwDfBZD8-LsmtrFpiqwBs7Xs'
+
+export const supabase = createClient(REACT_APP_SUPABASE_URL,REACT_APP_SUPABASE_ANON_KEY);
